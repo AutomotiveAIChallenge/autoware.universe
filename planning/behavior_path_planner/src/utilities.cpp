@@ -1812,6 +1812,7 @@ std::shared_ptr<PathWithLaneId> generateCenterLinePath(
     RCLCPP_ERROR(
       rclcpp::get_logger("behavior_path_planner").get_child("utilities"),
       "failed to find closest lanelet within route!!!");
+    std::cerr<<__FILE__ <<__LINE__<<std::endl;
     return {};  // TODO(Horibe) What should be returned?
   }
 
@@ -1849,6 +1850,7 @@ lanelet::ConstLineStrings3d getMaximumDrivableArea(
     RCLCPP_ERROR(
       rclcpp::get_logger("behavior_path_planner").get_child("utilities"),
       "failed to find closest lanelet within route!!!");
+    std::cerr<<__FILE__ <<__LINE__<<std::endl;
     return {};
   }
 
@@ -2078,8 +2080,16 @@ lanelet::ConstLanelets getCurrentLanes(const std::shared_ptr<const PlannerData> 
   const auto & common_parameters = planner_data->parameters;
 
   lanelet::ConstLanelet current_lane;
+  if(!planner_data){
+    std::cerr<<__FILE__ <<__LINE__<<std::endl;
+  }else if(!route_handler){
+    std::cerr<<__FILE__ <<__LINE__<<"route handler is null ptr"<<std::endl;
+  } else if(!planner_data->self_odometry){
+    std::cerr<<__FILE__ <<__LINE__<<std::endl;
+  }
   if (!route_handler->getClosestLaneletWithinRoute(current_pose, &current_lane)) {
     // RCLCPP_ERROR(getLogger(), "failed to find closest lanelet within route!!!");
+    std::cerr<<__FILE__ <<__LINE__<<std::endl;
     std::cerr << "failed to find closest lanelet within route!!!" << std::endl;
     return {};  // TODO(Horibe) what should be returned?
   }
@@ -2151,6 +2161,7 @@ lanelet::ConstLanelets calcLaneAroundPose(
     RCLCPP_ERROR(
       rclcpp::get_logger("behavior_path_planner").get_child("avoidance"),
       "failed to find closest lanelet within route!!!");
+    std::cerr<<__FILE__ <<__LINE__<<std::endl;
     return {};  // TODO(Horibe)
   }
 

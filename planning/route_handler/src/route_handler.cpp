@@ -285,12 +285,15 @@ void RouteHandler::setRouteLanelets(const lanelet::ConstLanelets & path_lanelets
 void RouteHandler::setLaneletsFromRouteMsg()
 {
   if (!is_route_msg_ready_ || !is_map_msg_ready_) {
+    std::cerr<<__FILE__ <<__LINE__<<std::endl;
     return;
   }
   route_lanelets_.clear();
   preferred_lanelets_.clear();
   const bool is_route_valid = lanelet::utils::route::isRouteValid(route_msg_, lanelet_map_ptr_);
   if (!is_route_valid) {
+    std::cerr<<__FILE__ <<__LINE__<<std::endl;
+
     return;
   }
 

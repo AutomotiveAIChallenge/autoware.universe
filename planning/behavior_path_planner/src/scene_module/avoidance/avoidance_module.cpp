@@ -2606,6 +2606,7 @@ lanelet::ConstLanelets AvoidanceModule::getAdjacentLane(
     RCLCPP_ERROR(
       rclcpp::get_logger("behavior_path_planner").get_child("avoidance"),
       "failed to find closest lanelet within route!!!");
+    std::cerr<<__FILE__ <<__LINE__<<std::endl;
     return {};  // TODO(Satoshi Ota)
   }
 
